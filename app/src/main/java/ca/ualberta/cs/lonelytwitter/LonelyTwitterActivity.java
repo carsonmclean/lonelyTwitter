@@ -66,8 +66,8 @@ public class LonelyTwitterActivity extends Activity {
         clearButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 tweets.clear();
-                saveInFile();
-                adapter.notifyDataSetChanged();
+                saveInFile(); // Open stream to disk, write text from buffer
+                adapter.notifyDataSetChanged(); // New data, so update the views that display data
             }
         });
 	}
