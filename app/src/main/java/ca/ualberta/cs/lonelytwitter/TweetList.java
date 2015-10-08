@@ -8,8 +8,9 @@ import java.util.List;
 /**
  * Created by carsonmclean on 30/09/15.
  */
-public class TweetList {
+public class TweetList implements MyObservable {
     private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+    private ArrayList<MyObserver> myObservers = new ArrayList<MyObserver>();
 
     public void add(Tweet tweet) {
        if (!tweets.contains(tweet)) {
@@ -17,6 +18,7 @@ public class TweetList {
        } else {
            throw new IllegalArgumentException();
        }
+        notifyObservers();
     }
 
     public void remove(Tweet tweet) {
@@ -39,5 +41,16 @@ public class TweetList {
 
     public int getCount() {
         return tweets.size();
+    }
+
+    public void addObserver(MyObserver observer) {
+        myObservers.add(observer);
+    }
+
+    public void notifyObservers() {
+        for (MyObserver observer : myObservers) {
+            observer.myNotify();
+        }
+
     }
 }

@@ -5,6 +5,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,10 +14,14 @@ import java.util.List;
 /**
  * Created by carsonmclean on 30/09/15.
  */
-public class TweetListTest extends ActivityInstrumentationTestCase2 {
+public class TweetListTest extends ActivityInstrumentationTestCase2 implements MyObserver {
     public TweetListTest() { // Need to call the default constructor
         super(LonelyTwitterActivity.class);
     }
+
+    private boolean wasNotified = false;
+
+
 
     // Test may not get done in order. Random. EG: testTeardown could run before testSetup
 
@@ -67,6 +72,7 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
         assertTrue(tweetList.getCount() == 3);
     }
 
+
 //    public void testGetTweets() {
 //        TweetList tweetList = new TweetList();
 //        Tweet tweet = new NormalTweet("Hello!");
@@ -81,5 +87,17 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
 //        }
 //    }
 
+    public void testTweetListChanged() {
+        TweetList tweetList = new TweetList();
+        Tweet tweet = new NormalTweet("hihihihihi");
+        tweetList.addObserver(this);
+        wasNotified = false;
+        assertFalse(wasNotified);
+        tweetList.add(tweet);
+        assertTrue(wasNotified);
+    }
 
+    public void myNotify() {
+        wasNotified = true;
+    }
 }

@@ -26,7 +26,7 @@ import com.google.gson.reflect.TypeToken; // allows generic types
 
 public class LonelyTwitterActivity extends Activity {
 
-	private static final String FILENAME = "file.sav"; // hardcoded?
+	private static final String FILENAME = "file.sav"; //
 	private EditText bodyText;
 	private ListView oldTweetsList;
 	private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
