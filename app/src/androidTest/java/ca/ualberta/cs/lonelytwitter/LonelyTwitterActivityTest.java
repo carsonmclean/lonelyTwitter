@@ -106,14 +106,30 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
                 saveButton.performClick();
             }
         });
-
+        getInstrumentation().waitForIdleSync();
 
 
         // test that we can push some kind of save button for last tweet
+        saveButton = activity.getSaveButton();
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                saveButton.performClick();
+            }
+        });
+        getInstrumentation().waitForIdleSync();
 
         // the new modified tweet text was actually saved
+        bodyText = activity.getBodyText();
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                assertTrue(bodyText == "Edited the value");
+            }
+        });
+        getInstrumentation().waitForIdleSync();
 
         // the new modified text iis displayed on the other activity
+        Tweet newModifiedTweet = (Tweet) oldTweetsList.getItemAtPosition(0);
+        assertEquals("Edited the value", newModifiedTweet.getText());
 
 
         // clean up our activities at the end of out test
